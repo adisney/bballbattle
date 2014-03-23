@@ -40,7 +40,22 @@ def get_bracket()
   json = JSON.parse(response[response.index("(")+1..-3], {:symbolize_names => true})
 end
 
-def get_picks()
+def knocked_out?(bracket, team)
+  bracket[:games].each do | game |
+    if game[:round].to_i > 1 && game[:gameState] == "final"
+      if game[:home][:winner] == "false" && game[:home][:names][:short] == team
+        return true
+      end
+      if game[:away][:winner] == "false" && game[:away][:names][:short] == team
+        return true
+      end
+    end
+  end
+
+  false
+end
+
+def get_picks(bracket)
   player_picks = {}
   File.readlines("data/picks.csv").each do | line |
     split = line.split(',')
@@ -51,32 +66,16 @@ def get_picks()
       psplit = pick.split(" ")
       seed = psplit[0]
       team = psplit[1..psplit.length - 1].join(" ")
-      player_picks[player][team] = seed
+      knocked_out = knocked_out?(bracket, team)
+      player_picks[player][team] = { :seed => seed, :knocked_out => knocked_out }
     end
   end
   player_picks
 end
 
-def find_missing(json, picks)
-  found_teams = []
-  json[:games].each do | game |
-    if game[:round] == "2"
-      picks.keys.each do | team |
-        found_teams.push team if team == game[:home][:names][:short]
-        found_teams.push team if team == game[:away][:names][:short]
-      end
-      puts game[:away][:names][:short] if game[:away][:names][:short].include? "Dakota"
-      puts game[:home][:names][:short] if game[:home][:names][:short].include? "Dakota"
-    end
-  end
-  picks.keys.each do | team |
-    puts team if !found_teams.include? team
-  end
-end
-
-def sum_total(json, picks)
+def sum_total(bracket, picks)
   sum = 0
-  json[:games].each do | game |
+  bracket[:games].each do | game |
     if game[:round].to_i > 1 && game[:gameState] == "final"
       name = ""
       if game[:home][:winner] == "true"
@@ -84,37 +83,21 @@ def sum_total(json, picks)
       elsif game[:away][:winner] == "true"
         name = game[:away][:names][:short]
       end
-      seed = picks[name]
-      if seed != nil
-        sum += get_points(seed.to_i)
+      pick = picks[name]
+      if pick != nil
+        sum += get_points(pick[:seed].to_i)
       end
     end
   end
   sum
 end
 
-def generate_html()
-  html = "<html>"
-  html += "<head><title>NCAA Challenge</title></head>"
-  html += "<body>"
-  get_picks.each do | player, picks |
-    html += "<div>#{player}'s score: #{sum_total(get_bracket, picks)}</div>"
-  end
-  html += "<br>"
-  html += "<div>Last updated: #{DateTime.now.strftime('%Y-%m-%d %H:%M:%S')}</div>"
-  html += "</body></html>"
-  html
-end
-
 def pick_details(bracket)
   json = {}
-  player_picks = get_picks
+  player_picks = get_picks(bracket)
   player_picks.each do | player, picks |
     total = sum_total(bracket, picks)
     json[player] = { :picks => picks, :total => total }
   end
   json
 end
-
-#picks = get_picks["Sam"]
-#find_missing(get_bracket, picks)
