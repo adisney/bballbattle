@@ -15,15 +15,19 @@ end
 
 Thread.new do
   while true do
+    #write_html
     sleep 600
-    write_html
+    file = File.open("bracket.json", "w")
+    file.write(get_bracket.to_json)
+    file.close
   end
 end
 
 get '/' do
-  File.read('totals.html')
+  File.read('public/index.html')
 end
 
 get '/picks' do
-  pick_details
+  bracket = JSON.parse(File.read("bracket.json"), {:symbolize_names => true})
+  pick_details(bracket).to_json
 end

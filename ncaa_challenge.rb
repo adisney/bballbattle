@@ -11,7 +11,10 @@ require 'date'
 #14 and 15 seeds = seven points per win
 #16 seeds = eight points per win
 
-@seed_to_points = {
+@bracket = nil
+
+def get_points(seed)
+seed_to_points = {
                   1 => 1,
                   2 => 2,
                   3 => 2,
@@ -29,6 +32,8 @@ require 'date'
                   15 => 7,
                   16 => 8
                   }
+                  seed_to_points[seed]
+end
 
 def get_bracket()
   response = %x[curl -s http://data.ncaa.com/jsonp/gametool/brackets/championships/basketball-men/d1/2013/data.json]
@@ -81,8 +86,7 @@ def sum_total(json, picks)
       end
       seed = picks[name]
       if seed != nil
-        #puts seed.to_s + " " + name
-        sum += @seed_to_points[seed.to_i]
+        sum += get_points(seed.to_i)
       end
     end
   end
@@ -102,8 +106,14 @@ def generate_html()
   html
 end
 
-def pick_details()
-  get_picks.to_json
+def pick_details(bracket)
+  json = {}
+  player_picks = get_picks
+  player_picks.each do | player, picks |
+    total = sum_total(bracket, picks)
+    json[player] = { :picks => picks, :total => total }
+  end
+  json
 end
 
 #picks = get_picks["Sam"]
