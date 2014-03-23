@@ -5,21 +5,18 @@ require 'ncaa_challenge'
 
 set :static, true
 
-def write_html
+def write_bracket
   puts "starting..."
-  file = open("totals.html", "w")
-  file.write(generate_html)
-  file.close()
+  file = File.open("bracket.json", "w")
+  file.write(get_bracket.to_json)
+  file.close
   puts "done"
 end
 
 Thread.new do
   while true do
-    #write_html
+    write_bracket
     sleep 600
-    file = File.open("bracket.json", "w")
-    file.write(get_bracket.to_json)
-    file.close
   end
 end
 
