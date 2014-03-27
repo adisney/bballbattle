@@ -6,6 +6,7 @@ require 'date'
 
 set :static, true
 set :bind, '0.0.0.0'
+set :port, 8080
 
 def write_bracket
   puts get_current_time
