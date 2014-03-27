@@ -2,11 +2,13 @@ $:.unshift File.join(File.dirname(__FILE__))
 
 require 'sinatra'
 require 'ncaa_challenge'
+require 'date'
 
 set :static, true
 set :bind, '0.0.0.0'
 
 def write_bracket
+  puts DateTime.now.strftime("%Y-%m-%d %H:%M:%S")
   puts "starting..."
   file = File.open("bracket.json", "w")
   file.write(get_bracket.to_json)
