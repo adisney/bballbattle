@@ -4,6 +4,7 @@ require 'sinatra'
 require 'ncaa_challenge'
 
 set :static, true
+set :bind, '0.0.0.0'
 
 def write_bracket
   puts "starting..."
