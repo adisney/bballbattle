@@ -1,5 +1,4 @@
 require 'json'
-require 'nokogiri'
 require 'date'
 
 #1 seeds = one point per win
