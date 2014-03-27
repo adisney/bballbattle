@@ -8,7 +8,7 @@ set :static, true
 set :bind, '0.0.0.0'
 
 def write_bracket
-  puts DateTime.now.strftime("%Y-%m-%d %H:%M:%S")
+  puts get_current_time
   puts "starting..."
   file = File.open("bracket.json", "w")
   file.write(get_bracket.to_json)

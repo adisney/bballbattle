@@ -34,10 +34,14 @@ seed_to_points = {
                   seed_to_points[seed]
 end
 
+def get_current_time
+  (Time.now.utc + Time.zone_offset("-05:00")).strftime("%Y-%m-%d %H:%M:%S")
+end
+
 def get_bracket()
   response = %x[curl -s http://data.ncaa.com/jsonp/gametool/brackets/championships/basketball-men/d1/2013/data.json]
   json = JSON.parse(response[response.index("(")+1..-3], {:symbolize_names => true})
-  json[:update_time] = DateTime.now.strftime("%Y-%m-%d %H:%M:%S")
+  json[:update_time] = get_current_time
   json
 end
 
