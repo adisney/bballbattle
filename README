@@ -1,0 +1,41 @@
+Beemsterboer B-Ball Battle
+
+Requirements:
+
+nginx
+ddclient
+ruby 1.9.3
+
+gems:
+  sinatra
+
+Logs:
+nginx:
+/var/log/nginx/access.log
+/var/log/nginx/error.log
+ddclient:
+/tmp/ddclient.cache
+sinatra:
+<root>/server.log
+
+Server initialization:
+
+Set up the reverse proxy:
+
+sudo apt-get install nginx
+sudo cp ./conf/nginx/default.conf /etc/nginx/conf.d/default.conf
+chkconfig nginx on
+sudo service nginx start
+
+Set up dynamic dns:
+The version of ddclient in Ubuntu repositories is out of date and has a debilitating bug. A new repository must be added with a patched version of ddclient
+
+sudo apt-add-repository ppa:nathan-renniewaldock/ppa
+sudo apt-get update && sudo apt-get install ddclient
+sudo cp ./conf/ddclient/ddclient.conf /etc/ddclient.conf
+sudo chown root /etc/ddclient.conf # May not be necessary step
+sudo ddclient
+
+To run the ruby server (Sinatra):
+
+ruby server.rb > server.log 2>&1 &
