@@ -1,5 +1,7 @@
 function on_success(response) {
-  _.each(response, function(data, player) {
+  $(".update-time").text(response.update_time);
+
+  _.each(response.player_picks, function(data, player) {
     row = $(".template").clone().removeClass("template");
     row.find(".player").append(player);
     index = 0

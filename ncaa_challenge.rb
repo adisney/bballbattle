@@ -37,6 +37,8 @@ end
 def get_bracket()
   response = %x[curl -s http://data.ncaa.com/jsonp/gametool/brackets/championships/basketball-men/d1/2013/data.json]
   json = JSON.parse(response[response.index("(")+1..-3], {:symbolize_names => true})
+  json[:update_time] = DateTime.now.strftime("%Y-%m-%d %H:%M:%S")
+  json
 end
 
 def knocked_out?(bracket, team)
@@ -69,7 +71,7 @@ def get_picks(bracket)
       player_picks[player][team] = { :seed => seed, :knocked_out => knocked_out }
     end
   end
-  player_picks
+  {:player_picks => player_picks, :update_time => bracket[:update_time]}
 end
 
 def sum_total(bracket, picks)
@@ -94,9 +96,9 @@ end
 def pick_details(bracket)
   json = {}
   player_picks = get_picks(bracket)
-  player_picks.each do | player, picks |
+  player_picks[:player_picks].each do | player, picks |
     total = sum_total(bracket, picks)
     json[player] = { :picks => picks, :total => total }
   end
-  json
+  {:player_picks => json, :update_time => player_picks[:update_time]}
 end
