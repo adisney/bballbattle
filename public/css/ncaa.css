@@ -1,0 +1,31 @@
+body {
+  background: rgba(243, 224, 165, 1);
+  font-family: 'Gafata', sans-serif;
+}
+.summary {
+  border-bottom: solid;
+  border-width: 1px;
+}
+.knocked-out {
+  color: red;
+}
+.update-time {
+  float: right;
+}
+.player {
+  padding-top: 20px;
+  font-size: 1.65em;
+  height: 60px;
+}
+.total {
+  padding-top: 20px;
+  font-size: 1.65em;
+  height: 60px;
+}
+.header {
+  font-size: 2em;
+  padding-top: 5px;
+}
+.team {
+  padding-top: 3px;
+}
