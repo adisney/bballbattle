@@ -17,13 +17,6 @@ def write_bracket
   puts "done"
 end
 
-Thread.new do
-  while true do
-    write_bracket
-    sleep 600
-  end
-end
-
 get '/' do
   File.read('public/index.html')
 end
@@ -31,4 +24,8 @@ end
 get '/picks' do
   bracket = JSON.parse(File.read("bracket.json"), {:symbolize_names => true})
   pick_details(bracket).to_json
+end
+
+get '/update_bracket' do
+  write_bracket
 end
