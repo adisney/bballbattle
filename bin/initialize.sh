@@ -1,10 +1,9 @@
 #! /bin/bash
 
-bin_dir=`dirname $0`
+dir=`pwd`
 
-#sudo iptables-restore < conf/ncaa.fw
-sudo sed -i "s/exit/iptables-restore < $bin_dir/../conf\/ncaa.fw\nexit/" /etc/rc.local
-exit 1
+sudo iptables-restore < conf/ncaa.fw
+sudo sed -i "s|exit|iptables-restore < $dir/conf/ncaa.fw\nexit|" /etc/rc.local
 
 # The version of ddclient in Ubuntu repositories is out of date and has a debilitating bug. A new repository must be added with a patched version of ddclient
 sudo apt-add-repository ppa:nathan-renniewaldock/ppa
