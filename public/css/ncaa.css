@@ -5,13 +5,17 @@ body {
 .topper {
   display: block;
   background: #0065a7;
-  padding-top: 10px;
+  padding-top: 5px;
   color: whitesmoke;
   font-weight: bold;
   text-align: center;
   font-size: 2.5em;
-  height: 30px;
+  height: 45px;
   vertical-align: bottom;
+}
+.logo {
+  width:64px; /* you can use % */
+  height: auto;
 }
 .summary {
   border-bottom: solid;
@@ -40,3 +44,4 @@ body {
 .team {
   padding-top: 3px;
 }
+
