@@ -1,14 +1,16 @@
 body {
-  /*background: rgba(243, 224, 165, 1);*/
+  background: whitesmoke;
   font-family: 'Gafata', sans-serif;
 }
 .topper {
-  background: blue;
-  color: white;
+  display: block;
+  background: #0065a7;
+  padding-top: 10px;
+  color: whitesmoke;
   font-weight: bold;
   text-align: center;
   font-size: 2.5em;
-  height: 50px;
+  height: 30px;
   vertical-align: bottom;
 }
 .summary {
