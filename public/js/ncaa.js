@@ -1,6 +1,7 @@
 function on_success(response) {
   $(".update-time").text(response.update_time);
 
+  rows = []
   _.each(response.player_picks, function(data, player) {
     row = $(".template").clone().removeClass("template");
     row.find(".player").append(player);
@@ -15,7 +16,14 @@ function on_success(response) {
       index += 1;
     });
     row.find(".total").append(data.total);
+    rows.push(row);
+  });
 
+  rows = _.sortBy(rows, function(row) {
+    return row.find(".total").text();
+  }).reverse();
+
+  _.each(rows, function(row) {
     $(".content").append(row);
   });
 }

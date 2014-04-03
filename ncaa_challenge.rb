@@ -87,7 +87,6 @@ def get_picks(bracket)
       seed = psplit[0]
       team = psplit[1..psplit.length - 1].join(" ")
       knocked_out = knocked_out?(bracket, team)
-      puts "Finding url for" + team
       logo_url = find_logo_url(bracket, team)
       player_picks[player][team] = { :seed => seed, 
                                      :knocked_out => knocked_out, 
@@ -124,5 +123,6 @@ def pick_details(bracket)
     total = sum_total(bracket, picks)
     json[player] = { :picks => picks, :total => total }
   end
+  #sorted = json.sort_by { |player, data| data[:total] }.reverse
   {:player_picks => json, :update_time => player_picks[:update_time]}
 end
