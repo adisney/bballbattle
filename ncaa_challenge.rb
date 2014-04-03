@@ -61,6 +61,20 @@ def knocked_out?(bracket, team)
   false
 end
 
+def find_logo_url(bracket, team)
+  base_url = "http://i.turner.ncaa.com/dr/ncaa/ncaa7/release/"
+  icon_url = ""
+  bracket[:games].each do | game |
+    if game[:home][:names][:short] == team
+      icon_url = game[:home][:iconURL]
+    elsif game[:away][:names][:short] == team
+      icon_url = game[:away][:iconURL]
+    end
+  end
+
+  base_url + icon_url
+end
+
 def get_picks(bracket)
   player_picks = {}
   File.readlines("data/picks.csv").each do | line |
@@ -73,7 +87,12 @@ def get_picks(bracket)
       seed = psplit[0]
       team = psplit[1..psplit.length - 1].join(" ")
       knocked_out = knocked_out?(bracket, team)
-      player_picks[player][team] = { :seed => seed, :knocked_out => knocked_out }
+      puts "Finding url for" + team
+      logo_url = find_logo_url(bracket, team)
+      player_picks[player][team] = { :seed => seed, 
+                                     :knocked_out => knocked_out, 
+                                     :logo_url => logo_url
+                                   }
     end
   end
   {:player_picks => player_picks, :update_time => bracket[:update_time]}

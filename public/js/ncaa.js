@@ -11,6 +11,7 @@ function on_success(response) {
       if (teamData.knocked_out === true) {
         teamDiv.addClass("knocked-out");
       }
+      teamDiv.find(".team-logo").attr("src", teamData.logo_url)
       index += 1;
     });
     row.find(".total").append(data.total);

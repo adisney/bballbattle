@@ -44,4 +44,7 @@ body {
 .team {
   padding-top: 3px;
 }
-
+.team-logo {
+  width:48px; /* you can use % */
+  height: auto;
+}
