@@ -39,6 +39,7 @@ def get_current_time
 end
 
 def get_bracket()
+  # based on bracket located at http://www.ncaa.com/interactive-bracket/basketball-men/d1
   response = %x[curl -s http://data.ncaa.com/jsonp/gametool/brackets/championships/basketball-men/d1/2013/data.json]
   json = JSON.parse(response[response.index("(")+1..-3], {:symbolize_names => true})
   json[:update_time] = get_current_time
