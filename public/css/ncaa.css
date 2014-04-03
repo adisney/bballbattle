@@ -23,6 +23,7 @@ body {
 }
 .knocked-out {
   color: red;
+  opacity: .3;
 }
 .update-time {
   float: right;
