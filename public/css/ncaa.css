@@ -22,7 +22,6 @@ body {
   border-width: 1px;
 }
 .knocked-out {
-  color: red;
   opacity: .3;
 }
 .update-time {
