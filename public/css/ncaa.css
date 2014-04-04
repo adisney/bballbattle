@@ -21,8 +21,11 @@ body {
   border-bottom: solid;
   border-width: 1px;
 }
-.knocked-out {
+.knocked-out-details {
   opacity: .3;
+}
+.knocked-out-logos {
+  opacity: .15;
 }
 .update-time {
   float: right;

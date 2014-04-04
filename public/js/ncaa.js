@@ -1,7 +1,4 @@
 function markIfEliminated(elem, teamData) {
-  if (teamData.knocked_out === true) {
-    elem.addClass("knocked-out");
-  }
 }
 
 function populateTeamDetails(row, team, index, teamData) {
@@ -9,6 +6,9 @@ function populateTeamDetails(row, team, index, teamData) {
   teamDiv.append(teamData.seed + ". " + team);
   markIfEliminated(teamDiv, teamData);
   teamDiv.find(".team-logo").attr("src", teamData.logo_url);
+  if (teamData.knocked_out === true) {
+    teamDiv.addClass("knocked-out-details");
+  }
   return row.find(".details");
 }
 
@@ -16,7 +16,9 @@ function populateTeamLogos(row, teamData) {
   imgTag = row.find(".logos > .template").clone();
   imgTag.removeClass("template").removeClass("hidden");
   imgTag.attr("src", teamData.logo_url);
-  markIfEliminated(imgTag, teamData)
+  if (teamData.knocked_out === true) {
+    imgTag.addClass("knocked-out-logos");
+  }
   row.find(".logos > .row-fluid").append(imgTag);
   return row.find(".logos");
 }
