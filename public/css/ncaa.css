@@ -28,17 +28,17 @@ body {
   float: right;
 }
 .player {
-  padding-top: 20px;
-  font-size: 1.20em;
+  padding-top: 25px;
+  font-size: 1.8em;
   height: 60px;
 }
 .total {
-  padding-top: 20px;
-  font-size: 1.20em;
+  padding-top: 25px;
+  font-size: 1.8em;
   height: 60px;
 }
 .header {
-  font-size: 1.2em;
+  font-size: 1.8em;
   padding-top: 5px;
 }
 .team {
@@ -47,4 +47,7 @@ body {
 .team-logo {
   width:48px; /* you can use % */
   height: auto;
+}
+.hidden {
+  display: none !important;
 }
