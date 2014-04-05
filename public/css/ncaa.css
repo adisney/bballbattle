@@ -31,12 +31,12 @@ body {
   float: right;
 }
 .player {
-  padding-top: 25px;
+  padding-top: 1.5%;
   font-size: 1.8em;
   height: 60px;
 }
 .total {
-  padding-top: 25px;
+  padding-top: 1.5%;
   font-size: 1.8em;
   height: 60px;
 }
@@ -55,8 +55,16 @@ body {
   display: none !important;
 }
 .logos {
+  margin-left: .5% !important;
   cursor: pointer;
 }
 .details {
+  margin-left: .5% !important;
   cursor: pointer;
+}
+.expander {
+  font-size: .75em;
+  cursor: pointer;
+  width: 1.3% !important;
+  padding-top: 1.3%;
 }

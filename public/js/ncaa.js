@@ -23,15 +23,28 @@ function populateTeamLogos(row, teamData) {
   return row.find(".logos");
 }
 
-function configOnClick(details, logos) {
-  details.click(function() {
-    details.addClass('hidden');
-    logos.removeClass('hidden');
-  });
-  logos.click(function() {
+function embiggen(details, logos, id) {
+  return function() {
+    $("#" + id).empty().append("[ - ]");
     details.removeClass('hidden');
     logos.addClass('hidden');
-  });
+    $("#" + id).off("click").click(ensmallen(details, logos, id));
+  }
+}
+
+function ensmallen(details, logos, id) {
+  return function() {
+    $("#" + id).empty().append("[ + ]");
+    details.addClass('hidden');
+    logos.removeClass('hidden');
+    $("#" + id).off("click").click(embiggen(details, logos, id));
+  }
+}
+
+function configOnClick(details, logos, id) {
+  details.click(ensmallen(details, logos, id));
+  logos.click(embiggen(details, logos, id));
+  $("#" + id).click(embiggen(details, logos, id));
 }
 
 function on_success(response) {
@@ -39,15 +52,19 @@ function on_success(response) {
 
   rows = [];
   _.each(response.player_picks, function(data, player) {
+    expanderId = player.trim().replace(' ', '-') + "-expander";
+
     row = $(".template").clone().removeClass("template");
     row.find(".player").append(player);
+    row.find(".expander").attr("id", expanderId);
+    row.find(".expander").click(embiggen(row.find(".details"), row.find(".logos"), expanderId));
 
     index = 0
     _.each(data.picks, function(teamData, team) {
       details = populateTeamDetails(row, team, index, teamData);
       logos = populateTeamLogos(row, teamData);
 
-      configOnClick(details, logos);
+      configOnClick(details, logos, expanderId);
 
       index += 1;
     });
