@@ -37,7 +37,7 @@ function configOnClick(details, logos) {
 function on_success(response) {
   $(".update-time").text(response.update_time);
 
-  rows = []
+  rows = [];
   _.each(response.player_picks, function(data, player) {
     row = $(".template").clone().removeClass("template");
     row.find(".player").append(player);
@@ -60,7 +60,11 @@ function on_success(response) {
     return row.find(".total").text();
   }).reverse();
 
+  place = 1;
   _.each(rows, function(row) {
+    player = row.find(".player");
+    player.prepend(place + ". ")
+    place += 1;
     $(".content").append(row);
   });
 }
