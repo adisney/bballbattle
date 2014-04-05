@@ -123,6 +123,12 @@ def pick_details(bracket)
     total = sum_total(bracket, picks)
     json[player] = { :picks => picks, :total => total }
   end
-  #sorted = json.sort_by { |player, data| data[:total] }.reverse
   {:player_picks => json, :update_time => player_picks[:update_time]}
+end
+
+def team_totals(bracket)
+  totals = {}
+  bracket[:game].each do | game |
+    bracket[:home][:name][:short]
+  end
 end
