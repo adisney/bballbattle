@@ -1,6 +1,6 @@
 *.swp
 *~
 *.swo
-bracket*.json
+*bracket*.json
 .DS_Store
 *.log
