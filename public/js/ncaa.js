@@ -54,7 +54,7 @@ function on_success(response) {
   _.each(response.player_picks, function(data, player) {
     expanderId = player.trim().replace(' ', '-') + "-expander";
 
-    row = $(".template").clone().removeClass("template");
+    row = $($(".template")[0]).clone().removeClass("template").removeClass("hidden");
     row.find(".player").append(player);
     row.find(".expander").attr("id", expanderId);
     row.find(".expander").click(embiggen(row.find(".details"), row.find(".logos"), expanderId));
