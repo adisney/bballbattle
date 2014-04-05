@@ -55,11 +55,11 @@ body {
   display: none !important;
 }
 .logos {
-  margin-left: .5% !important;
+  margin-left: 1% !important;
   cursor: pointer;
 }
 .details {
-  margin-left: .5% !important;
+  margin-left: 1% !important;
   cursor: pointer;
 }
 .expander {
