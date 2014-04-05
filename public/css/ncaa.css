@@ -54,3 +54,9 @@ body {
 .hidden {
   display: none !important;
 }
+.logos {
+  cursor: pointer;
+}
+.details {
+  cursor: pointer;
+}
