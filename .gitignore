@@ -4,3 +4,4 @@
 *bracket*.json
 .DS_Store
 *.log
+keys/*.pem
