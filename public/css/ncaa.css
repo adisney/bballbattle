@@ -58,6 +58,9 @@ body {
   margin-left: .5% !important;
   cursor: pointer;
 }
+.logos img {
+  margin-right: 2%;
+}
 .details {
   margin-left: .5% !important;
   cursor: pointer;
