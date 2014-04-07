@@ -72,7 +72,8 @@ def find_logo_url(bracket, team)
     end
   end
 
-  base_url + icon_url
+  split = icon_url.split("/")
+  "img/" + split[split.length-1]
 end
 
 def get_picks(bracket)
