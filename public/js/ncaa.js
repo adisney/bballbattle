@@ -19,32 +19,35 @@ function populateTeamLogos(row, teamData) {
   if (teamData.knocked_out === true) {
     imgTag.addClass("knocked-out-logos");
   }
-  row.find(".logos > .row-fluid").append(imgTag);
+  row.find(".logos .logo-display").append(imgTag);
   return row.find(".logos");
 }
 
 function embiggen(details, logos, id) {
   return function() {
-    $("#" + id).empty().append("[ - ]");
+    $("." + id + ".glyphicon-plus").addClass("hidden");
+    $("." + id + ".glyphicon-minus").removeClass("hidden");
     details.removeClass('hidden');
     logos.addClass('hidden');
-    $("#" + id).off("click").click(ensmallen(details, logos, id));
+    //$("." + id).off("click").click(ensmallen(details, logos, id));
   }
 }
 
 function ensmallen(details, logos, id) {
   return function() {
-    $("#" + id).empty().append("[ + ]");
+    $("." + id + ".glyphicon-plus").removeClass("hidden");
+    $("." + id + ".glyphicon-minus").addClass("hidden");
     details.addClass('hidden');
     logos.removeClass('hidden');
-    $("#" + id).off("click").click(embiggen(details, logos, id));
+    //$("#" + id).off("click").click(embiggen(details, logos, id));
   }
 }
 
 function configOnClick(details, logos, id) {
   details.click(ensmallen(details, logos, id));
   logos.click(embiggen(details, logos, id));
-  $("#" + id).click(embiggen(details, logos, id));
+  $("." + id + ".glyphicon-plus").click(embiggen(details, logos, id));
+  $("." + id + ".glyphicon-minus").click(ensmallen(details, logos, id));
 }
 
 function on_success(response) {
@@ -56,8 +59,9 @@ function on_success(response) {
 
     row = $($(".template")[0]).clone().removeClass("template").removeClass("hidden");
     row.find(".player").append(player);
-    row.find(".expander").attr("id", expanderId);
-    row.find(".expander").click(embiggen(row.find(".details"), row.find(".logos"), expanderId));
+    row.find(".expander").addClass(expanderId);
+    row.find(".expander.glyphicon-plus").click(embiggen(row.find(".details"), row.find(".logos"), expanderId));
+    row.find(".expander.glyphicon-minus").click(ensmallen(row.find(".details"), row.find(".logos"), expanderId));
 
     index = 0
     _.each(data.picks, function(teamData, team) {

@@ -5,13 +5,12 @@ body {
 .topper {
   display: block;
   background: #0065a7;
-  padding-top: 5px;
   color: whitesmoke;
   font-weight: bold;
   text-align: center;
   font-size: 2.5em;
-  height: 45px;
   vertical-align: bottom;
+  padding-bottom: 3px;
 }
 .logo {
   width:64px; /* you can use % */
@@ -31,12 +30,12 @@ body {
   float: right;
 }
 .player {
-  padding-top: 1.5%;
+  padding-top: 0.9%;
   font-size: 1.8em;
   height: 60px;
 }
 .total {
-  padding-top: 1.5%;
+  padding-top: 0.9%;
   font-size: 1.8em;
   height: 60px;
 }
@@ -48,8 +47,9 @@ body {
   padding-top: 3px;
 }
 .team-logo {
-  width:48px; /* you can use % */
-  height: auto;
+  height:48px; /* you can use % */
+  width: auto;
+  margin-top: 5px;
 }
 .hidden {
   display: none !important;
