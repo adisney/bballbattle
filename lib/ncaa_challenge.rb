@@ -1,15 +1,6 @@
 require 'json'
 require 'date'
 
-#1 seeds = one point per win
-#2 and 3 seeds = two points per win
-#4 and 5 seeds = three points per win
-#6, 7 and 8 seeds = four points per win
-#9, 10 and 11 seeds = five points per win
-#12 and 13 seeds = six points per win
-#14 and 15 seeds = seven points per win
-#16 seeds = eight points per win
-
 @bracket = nil
 
 def get_points(seed)
