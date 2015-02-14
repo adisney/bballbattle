@@ -1,5 +1,6 @@
 require 'json'
 require 'date'
+require 'picks.rb'
 
 @bracket = nil
 
