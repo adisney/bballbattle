@@ -1,5 +1,7 @@
 require 'set'
 require 'json'
+require 'team.rb'
+require 'game.rb'
 
 def get_bracket()
   # based on bracket located at http://www.ncaa.com/interactive-bracket/basketball-men/d1
@@ -18,56 +20,30 @@ def write_bracket
   puts "done"
 end
 
-def get_team(game, side)
-  team = game[side]
-  result = {}
-  result[:name] = team[:names][:short]
-  result[:seed] = team[:isTop] == "T" ? game[:seedTop].to_i : game[:seedBottom].to_i
-  result[:logo] = team[:iconURL].split('/')[8]
-
-  result
-end
-
 def parse_bracket(bracket_file)
   JSON.parse(File.read(bracket_file), {:symbolize_names => true})[:games]
 end
 
-def get_team_details(bracket_file)
+def get_teams(bracket_file)
   games = parse_bracket(bracket_file)
   teams = {}
 
   games.each do |game| 
-    away = get_team(game, :away)
-    teams[away[:name]] = away
-    home = get_team(game, :home)
-    teams[home[:name]] = home
+    away = Team.from_json(game, :away)
+    teams[away.name] = away
+    home = Team.from_json(game, :home)
+    teams[home.name] = home
   end
 
   teams
 end
 
-def get_side_details(game, side)
-  side = game[side]
-  details = {}
-
-  details[:name] = side[:names][:short]
-  details[:score] = side[:score].to_i
-  details[:winner] = side[:winner] == "true"
-
-  details
-end
-
 def get_matchups(bracket_file)
   games = parse_bracket(bracket_file)
-  matchups = {}
+  matchups = []
 
   games.each do |game|
-    round = game[:round].to_i
-    away = get_side_details(game, :away)
-    home = get_side_details(game, :home)
-
-    matchups[round] = [] if !matchups.has_key?(round)
-    matchups[round] << {:teams => [away, home], :state => game[:gameState]}
+    matchups << Game.from_json(game)
   end
 
   matchups

@@ -8,8 +8,4 @@ describe "challenge" do
   it "has all of the players" do
     expect(details[:player_picks].keys).to eq ["Mark", "Alex D", "Mike E", "Molly D", "Kyle", "Kevin M.", "Gene C.", "Ryan J", "Rob T", "Jon P", "George", "Sam"]
   end
-
-  it "sums player score" do
-    expect(player_picks["Alex D"][:total]).to eq 28
-  end
 end

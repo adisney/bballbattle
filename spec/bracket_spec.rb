@@ -70,12 +70,12 @@ describe "bracket" do
 
   describe "producing team details" do
     let (:bracket_file) { "data/test_bracket.json" }
-    let (:teams) { get_team_details(bracket_file) }
-    let (:louisville) {teams.values.find {|team| team[:name] == "Louisville"}}
-    let (:pitt) {teams.values.find {|team| team[:name] == "Pittsburgh"}}
+    let (:teams) { get_teams(bracket_file) }
+    let (:louisville) {teams.values.find {|team| team.name == "Louisville"}}
+    let (:pitt) {teams.values.find {|team| team.name == "Pittsburgh"}}
 
     it "should get team names" do
-      names = teams.map {|key, team| team[:name]}
+      names = teams.map {|key, team| team.name}
       #expect(names.length).to eq (68)
       expect(names).to include ("Albany")
       expect(names).to include ("Mercer")
@@ -86,49 +86,36 @@ describe "bracket" do
     end
 
     it "gets team seed" do
-      expect(louisville[:seed]).to eq 4
-      expect(pitt[:seed]).to eq 9
+      expect(louisville.seed).to eq 4
+      expect(pitt.seed).to eq 9
     end
 
     it "gets name of logo" do
-      expect(louisville[:logo]).to eq "louisville.70.png"
-      expect(pitt[:logo]).to eq "pittsburgh.70.png"
+      expect(louisville.logo).to eq "louisville.70.png"
+      expect(pitt.logo).to eq "pittsburgh.70.png"
     end
   end
 
   describe "producing matchups" do
     let (:matchups) { get_matchups("data/test_bracket.json") }
-    let (:teams) { matchups[1][0][:teams] }
-
-    it "gets matchups by round" do
-      expect(matchups[1].size()).to eq 4 
-      expect(matchups[2].size()).to eq 32 
-      expect(matchups[3].size()).to eq 16 
-      expect(matchups[4].size()).to eq 8 
-      expect(matchups[5].size()).to eq 4 
-      expect(matchups[6].size()).to eq 2 
-      expect(matchups[7].size()).to eq 1 
-    end
+    let (:matchup) { matchups[0] }
 
     it "gets game state" do
-      expect(matchups[1][0][:state]).to eq "final"
-      expect(matchups[4][0][:state]).to eq "pre"
+      expect(matchups[0].state).to eq "final"
+      expect(matchups[50].state).to eq "pre"
     end
     
     describe "team details" do
       it "gets competitors" do
-        expect(teams[0][:name]).to eq "Albany"
-        expect(teams[1][:name]).to eq "Mt. St. Mary's"
+        expect(matchup.teams).to eq ["Mt. St. Mary's","Albany"]
       end
 
       it "gets the winner" do
-        expect(teams[0][:winner]).to eq true
-        expect(teams[1][:winner]).to eq false 
+        expect(matchup.winner).to eq "Albany"
       end
 
       it "gets the score" do
-        expect(teams[0][:score]).to eq 71
-        expect(teams[1][:score]).to eq 64 
+        expect(matchup.scores).to eq [64, 71]
       end
     end
   end
