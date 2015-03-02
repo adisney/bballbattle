@@ -29,3 +29,8 @@ end
 get '/update_bracket' do
   write_bracket
 end
+
+get '/ideas' do
+  require 'open-uri'
+  open('http://localhost:9001/p/idea-pad').read
+end
