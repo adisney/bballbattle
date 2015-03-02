@@ -12,7 +12,7 @@ set :public_folder, './public'
 def write_bracket
   puts get_current_time
   puts "starting..."
-  file = File.open("bracket.json", "w")
+  file = File.open("data/bracket.json", "w")
   file.write(get_bracket.to_json)
   file.close
   puts "done"
@@ -23,7 +23,7 @@ get '/' do
 end
 
 get '/picks' do
-  Picks.new("data/picks.csv", "data/test_bracket.json").to_json
+  Picks.new("data/picks.csv", "data/bracket.json").to_json
 end
 
 get '/update_bracket' do
