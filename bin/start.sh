@@ -1,3 +1,3 @@
 #! /bin/bash
 
-ruby server.rb > server.log 2>&1 &
+ruby ./lib/server.rb > server.log 2>&1 &
