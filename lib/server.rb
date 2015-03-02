@@ -1,7 +1,6 @@
 $:.unshift File.join(File.dirname(__FILE__))
 
 require 'sinatra'
-require 'ncaa_challenge'
 require 'date'
 require 'picks'
 
@@ -24,7 +23,7 @@ get '/' do
 end
 
 get '/picks' do
-  analyze_picks("data/picks.csv", "data/test_bracket.json")
+  Picks.new("data/picks.csv", "data/test_bracket.json").to_json
 end
 
 get '/update_bracket' do

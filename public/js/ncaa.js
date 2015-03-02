@@ -5,8 +5,8 @@ function populateTeamDetails(row, team, index, teamData) {
   teamDiv = row.find(".team" + (index + 1));
   teamDiv.append(teamData.seed + ". " + team);
   markIfEliminated(teamDiv, teamData);
-  teamDiv.find(".team-logo").attr("src", teamData.logo_url);
-  if (teamData.knocked_out === true) {
+  teamDiv.find(".team-logo").attr("src", "img/" + teamData.logo);
+  if (teamData.knockedOut === true) {
     teamDiv.addClass("knocked-out-details");
   }
   return row.find(".details");
@@ -15,8 +15,8 @@ function populateTeamDetails(row, team, index, teamData) {
 function populateTeamLogos(row, teamData) {
   imgTag = row.find(".logos > .template").clone();
   imgTag.removeClass("template").removeClass("hidden");
-  imgTag.attr("src", teamData.logo_url);
-  if (teamData.knocked_out === true) {
+  imgTag.attr("src", "img/" + teamData.logo);
+  if (teamData.knockedOut === true) {
     imgTag.addClass("knocked-out-logos");
   }
   row.find(".logos .logo-display").append(imgTag);
@@ -51,10 +51,11 @@ function configOnClick(details, logos, id) {
 }
 
 function on_success(response) {
-  $(".update-time").text(response.update_time);
+  //$(".update-time").text(response.update_time);
 
   rows = [];
-  _.each(response.player_picks, function(data, player) {
+  _.each(response, function(data) {
+    player = data.name
     expanderId = player.trim().replace(' ', '-') + "-expander";
 
     row = $($(".template")[0]).clone().removeClass("template").removeClass("hidden");
@@ -73,7 +74,7 @@ function on_success(response) {
       index += 1;
     });
 
-    row.find(".total").append(data.total);
+    row.find(".total").append(data.score);
     rows.push(row);
   });
 
