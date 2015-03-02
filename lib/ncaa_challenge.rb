@@ -37,7 +37,3 @@ def get_bracket()
   json[:update_time] = get_current_time
   json
 end
-
-def get_totals(picks_file, bracket_file)
-  player_picks = pick_stuff("data/picks.csv", "data/test_bracket.json")
-end

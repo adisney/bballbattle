@@ -44,4 +44,8 @@ class Team
   def lost_game
     @knocked_out = true
   end
+
+  def to_json(*a)
+    "{\"name\": \"#{@name}\", \"seed\": #{@seed}, \"logo\": \"#{logo}\", \"knockedOut\": #{@knocked_out}}"
+  end
 end

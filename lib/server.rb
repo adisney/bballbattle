@@ -3,10 +3,12 @@ $:.unshift File.join(File.dirname(__FILE__))
 require 'sinatra'
 require 'ncaa_challenge'
 require 'date'
+require 'picks'
 
 set :static, true
 set :bind, '0.0.0.0'
 set :port, 8080
+set :public_folder, './public'
 
 def write_bracket
   puts get_current_time
@@ -22,8 +24,7 @@ get '/' do
 end
 
 get '/picks' do
-  bracket = JSON.parse(File.read("bracket.json"), {:symbolize_names => true})
-  pick_details(bracket).to_json
+  analyze_picks("data/picks.csv", "data/test_bracket.json")
 end
 
 get '/update_bracket' do

@@ -44,6 +44,14 @@ describe "team" do
     expect(cloned_team.logo).to eq(team.logo)
   end
   
+  it "converts to json" do
+    expect(team.to_json).to eq("{\"name\": \"Louisville\", \"seed\": 4, \"logo\": \"louisville.70.png\", \"knockedOut\": false}")
+  end
+
+  it "can parse it's own JSON" do
+    JSON.parse(team.to_json)
+  end
+
   describe "from json" do
     let (:json) { 
       JSON.parse("{\"home\": {
