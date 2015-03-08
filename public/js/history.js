@@ -4,7 +4,7 @@ function onPageReady() {
     buildHallOfFame(history);
   }
   
-  $.ajax('http://localhost:8080/history?year=' + getParameterByName('year')).success(onSuccess);
+  $.ajax('/history?year=' + getParameterByName('year')).success(onSuccess);
 }
 
 function getParameterByName(name) {
