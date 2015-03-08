@@ -25,14 +25,14 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li><a href="/">Tournament<span class="sr-only">(current)</span></a></li>
-        <li class="active dropdown">
+        <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Hall of Fame<span class="caret"></span></a>
         <ul class="dropdown-menu" role="menu">
           <li><a href="history.html?year=2013">2013</a></li>
           <li><a href="history.html?year=2014">2014</a></li>
         </ul>
         </li>
-        <li> <a href='/rules.html'>Rules</a> </li>
+        <li class='active'> <a href='/rules.html'>Rules</a> </li>
       </ul>
       <ul class='pull-right nav navbar-nav col-md-2'>
         <li style='color:rgba(255,255,255,.25); font-size: 1.5em;margin-top: 5%'>Mark Madness</li>
@@ -41,27 +41,26 @@
   </div>
 </nav>
 <div class='main-container'>
-  <div class='table container-fluid'>
-    <div class='row'>
-      <div class='hof-header col-md-offset-3 col-md-7'>Mark Madness Hall of Fame - <span class='year'></span></div>
-    </div>
-  </div>
+  <h2>Crazy Eights</h2>
+  <p>Crazy Eights is ideal for people who:</p> 
+  <ul>
+    <li>Can’t help pulling for their favorite school</li>
+    <li>Get a kick out of guessing which teams will be Cinderellas</li>
+    <li>Don’t want to sweat over every single tourney game</li>
+  </ul>
+  <p>Players pick any eight teams from the tourney field. Every time a player’s team wins, he or she scored points based on the team’s seed. Here’s how the points break down:</p>
+
+  <ul>
+    <li>No. 1 seeds = one point per win</li>
+    <li>No. 2 and 3 seeds = two points per win</li>
+    <li>No. 4 and 5 seeds = three points per win</li>
+    <li>No. 6, 7 and 8 seeds = four points per win</li>
+    <li>No. 9, 10 and 11 seeds = five points per win</li>
+    <li>No. 12 and 13 seeds = six points per win</li>
+    <li>No. 14 and 15 seeds = seven points per win</li>
+    <li>No. 16 seeds = eight points per win</li>
+  </ul>
+  <p>While easy to play, Crazy Eights requires more strategy than the Bracket Challenge. You have to pick the right blend of favorites and longshots. It’s generally won by someone who knows something about college hoops.</p>
 </div>
-
-<div id='templates'>
-  <div class='player-row row' style='font-size: 2em;'>
-    <div class='col-md-offset-2 col-md-1 place'></div>
-    <div class='col-md-2 name'></div>
-    <div class='col-md-4 container-fluid teams'>
-      <div style='font-size:.5em;' class='col1 col-md-6'></div>
-      <div style='font-size:.5em;' class='col2 col-md-6'></div>
-    </div>
-    <div class='col-md-1 points'></div>
-  </div>
-</div>
-
-<script type='text/javascript'>
-  onPageReady();
-</script>
-
 </body>
+</html>
