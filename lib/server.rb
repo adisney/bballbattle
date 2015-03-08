@@ -26,6 +26,10 @@ get '/picks' do
   Picks.new("data/picks.csv", "data/bracket.json").to_json
 end
 
+get '/history' do
+  File.read('data/history/' + params[:year] + '.json')
+end
+
 get '/update_bracket' do
   write_bracket
 end

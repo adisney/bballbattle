@@ -1,5 +1,4 @@
 require 'player.rb'
-require 'picks.rb'
 
 describe "player" do
   let (:teams) {{

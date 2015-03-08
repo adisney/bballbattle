@@ -1,3 +1,7 @@
+require 'team.rb'
+require 'game.rb'
+require 'json'
+
 class Player
   attr_accessor :name, :picks, :score
 
@@ -6,6 +10,12 @@ class Player
     @picks = get_player_picks(picks, matchups)
     @score = calc_player_score(@picks)
   end
+
+  def to_json
+    "{\"name\": \"#{@name}\", \"picks\": #{@picks.to_json}, \"score\": #{@score}}"
+  end
+
+  private
 
   def parse_line(line, teams)
     split = line.split(',').map(&:strip)
@@ -38,9 +48,5 @@ class Player
 
   def calc_player_score picks
     picks.reduce(0) {|sum, (name, pick)| sum + pick.points}
-  end
-
-  def to_json
-    "{\"name\": \"#{@name}\", \"picks\": #{@picks.to_json}, \"score\": #{@score}}"
   end
 end
