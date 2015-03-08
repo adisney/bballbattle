@@ -122,3 +122,9 @@ body {
 .place {
   text-align: right;
 }
+.points {
+  text-align: right;
+}
+.hof-header {
+  font-size:3em;
+}
