@@ -1,5 +1,6 @@
 function onManage() {
   var selectedTeams = [];
+  var teams;
 
   function user() {
     return $.cookie('username')
@@ -8,7 +9,10 @@ function onManage() {
     return user();
   }
 
-  function substringMatcher(strs) {
+  function substringMatcher(objs) {
+    var strs = _.map(objs, function(obj) {
+      return obj.seed + '. ' + obj.name;
+    });
     return function findMatches(q, cb) {
       var matches, substrRegex;
       matches = [];
@@ -25,6 +29,7 @@ function onManage() {
 
   function onLoggedIn() {
     var manageForm = $("#templates .manage-form").clone();
+
     function populateTeams() {
       var panel = manageForm.find('.teams-panel');
       panel.empty();
@@ -40,13 +45,16 @@ function onManage() {
         panel.find('.team-row' + (index % 2)).append(entry);
       });
     }
+
     function addTeam(user, team) {
       console.log("Adding team " + team + " for user " + user);
-      if (selectedTeams.length < 8) {
+      if (selectedTeams.length < 8 && _.contains(teams, team)) {
         selectedTeams.push(team);
+        $(this).val('');
       }
       populateTeams(selectedTeams);
     }
+
     function deleteTeam(user, team) {
       console.log("Deleting team " + team + " for user " + user);
       selectedTeams = _.without(selectedTeams, team);
@@ -57,25 +65,24 @@ function onManage() {
       $.removeCookie('username');
       window.location.reload();
     });
-    var teams = ["Illinois", "Michigan", "TCU", "Lousiville", "Iowa State", "BYU", "Ohio State"];
-    var typeaheadReference = manageForm.find('.typeahead').typeahead({
-      minLength: 1,
-      highlight: true,
-    },
-    {
-      name: 'teams',
-      displayKey: 'value',
-      source: substringMatcher(teams)
-    });
-    manageForm.find('.typeahead').keypress(function(e) {
-      if(e.keyCode == 13) {
-        console.log("enter hit");
-        var team = $(this).val();
-        addTeam(user(), team);
-        $(this).val('');
+
+    $.ajax('/teams').success(function(data) {
+      function display(team) {
+        return team.name;
       }
+      teams = JSON.parse(data);
+      manageForm.find('.typeahead').typeahead(
+        { minLength: 1, highlight: true }, 
+        { name: 'teams', displayKey: 'value', source: substringMatcher(teams) }
+      );
+      manageForm.find('.typeahead').keypress(function(e) {
+        if(e.keyCode == 13) {
+          addTeam(user(), $(this).val());
+        }
+      });
     });
-    setTimeout(function(){ $('.typeahead').focus(); }, 0);
+    setTimeout(function(){ $('.typeahead').focus(); }, 100);
+    manageForm.find('.username').append(user());
 
     return manageForm;
   }
