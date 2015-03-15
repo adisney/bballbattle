@@ -12,15 +12,6 @@ set :port, 8080
 set :public_folder, './public'
 set :manager, Manager.new("data/picks.csv", "data/bracket.json")
 
-def write_bracket
-  puts get_current_time
-  puts "starting..."
-  file = File.open("data/bracket.json", "w")
-  file.write(get_bracket.to_json)
-  file.close
-  puts "done"
-end
-
 get '/' do
   File.read('public/index.html')
 end
@@ -34,7 +25,7 @@ get '/history' do
 end
 
 get '/update_bracket' do
-  write_bracket
+  Bracket.new("data/bracket.json").write_bracket
 end
 
 get '/teams' do
