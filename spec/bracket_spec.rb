@@ -1,6 +1,8 @@
 require 'bracket'
 
 describe "bracket" do
+  let (:bracket_file) { "data/test_bracket.json" }
+  let (:bracket) { Bracket.new(bracket_file) }
   let (:matchup_json) { 
     "{
       \"contestId\": \"446109\",
@@ -69,14 +71,13 @@ describe "bracket" do
   let (:matchup) { JSON.parse(matchup_json) }
 
   describe "producing team details" do
-    let (:bracket_file) { "data/test_bracket.json" }
-    let (:teams) { get_teams(bracket_file) }
+    let (:teams) { bracket.get_teams() }
     let (:louisville) {teams.values.find {|team| team.name == "Louisville"}}
     let (:pitt) {teams.values.find {|team| team.name == "Pittsburgh"}}
 
     it "should get team names" do
       names = teams.map {|key, team| team.name}
-      #expect(names.length).to eq (68)
+      expect(names.length).to eq (69)
       expect(names).to include ("Albany")
       expect(names).to include ("Mercer")
       expect(names).to include ("Mt. St. Mary's")
@@ -97,7 +98,7 @@ describe "bracket" do
   end
 
   describe "producing matchups" do
-    let (:matchups) { get_matchups("data/test_bracket.json") }
+    let (:matchups) { bracket.get_matchups() }
     let (:matchup) { matchups[0] }
 
     it "gets game state" do

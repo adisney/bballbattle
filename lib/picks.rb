@@ -3,8 +3,9 @@ require 'player.rb'
 
 class Picks
   def initialize(picks_file, bracket_file)
-    teams = get_teams(bracket_file)
-    matchups = get_matchups(bracket_file)
+    bracket = Bracket.new(bracket_file)
+    teams = bracket.get_teams()
+    matchups = bracket.get_matchups()
     @players = [] 
 
     File.readlines(picks_file).each do | line |

@@ -9,9 +9,12 @@ function onManage() {
     return user();
   }
 
+  function pickToString(obj) {
+    return obj.seed + '. ' + obj.name;
+  }
   function substringMatcher(objs) {
     var strs = _.map(objs, function(obj) {
-      return obj.seed + '. ' + obj.name;
+      return pickToString(obj);
     });
     return function findMatches(q, cb) {
       var matches, substrRegex;
@@ -47,8 +50,9 @@ function onManage() {
     }
 
     function addTeam(user, team) {
+      var seedless_team = team.replace(/\d+\. /, "");
       console.log("Adding team " + team + " for user " + user);
-      if (selectedTeams.length < 8 && _.contains(teams, team)) {
+      if (selectedTeams.length < 8 && _.contains(_.keys(teams), seedless_team)) {
         selectedTeams.push(team);
         $(this).val('');
       }
@@ -83,6 +87,20 @@ function onManage() {
     });
     setTimeout(function(){ $('.typeahead').focus(); }, 100);
     manageForm.find('.username').append(user());
+    $.ajax("/player?name=" + user()).success(function(picks) {
+      selectedTeams = JSON.parse(picks);
+      populateTeams();
+    });
+    manageForm.find('.apply-btn').click(function() {
+      $.ajax({url: "/update",
+             data: {
+               name: user(),
+               picks: selectedTeams
+             },
+             method: "POST"
+      });
+      window.location.reload();
+    });
 
     return manageForm;
   }
