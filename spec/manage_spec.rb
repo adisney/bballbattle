@@ -43,4 +43,9 @@ describe "manage" do
     manager.update("Alex D", ["4. Louisville","5. Oklahoma","4. Michigan State"])
     expect(manager.get "Alex D").to eq('["4. Louisville","5. Oklahoma","4. Michigan State"]')
   end
+
+  it "can remove all picks" do
+    manager.update("Alex D", nil)
+    expect(manager.get "Alex D").to eq ('[]')
+  end
 end

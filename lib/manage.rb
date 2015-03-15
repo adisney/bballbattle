@@ -29,8 +29,12 @@ class Manager
   end
 
   def update(player, picks)
-    picks = strip_seeds(picks)
-    @players_picks[player] = add_seed(picks)
+    if !picks.nil?
+      picks = strip_seeds(picks)
+      @players_picks[player] = add_seed(picks)
+    else
+      @players_picks[player] = []
+    end
   end
 
   private
