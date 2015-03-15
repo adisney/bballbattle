@@ -35,7 +35,9 @@ class Bracket
       teams[home.name] = home
     end
 
-    teams
+    teams.select do |name, team|
+      team.seed > 0
+    end
   end
 
   def get_matchups()

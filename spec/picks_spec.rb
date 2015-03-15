@@ -1,7 +1,7 @@
 require 'picks'
 
 describe "picks" do
-  let (:picks) { Picks.new("data/picks.csv", "data/test_bracket.json") }
+  let (:picks) { Picks.new("data/picks.bkp.csv", "data/test_bracket.json") }
   let (:from_json) { JSON.parse(picks.to_json, :symbolize_names => true) }
   let (:players) { from_json.map {|player| player[:name]} }
 

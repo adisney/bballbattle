@@ -77,7 +77,7 @@ describe "bracket" do
 
     it "should get team names" do
       names = teams.map {|key, team| team.name}
-      expect(names.length).to eq (69)
+      expect(names.length).to eq (68)
       expect(names).to include ("Albany")
       expect(names).to include ("Mercer")
       expect(names).to include ("Mt. St. Mary's")
