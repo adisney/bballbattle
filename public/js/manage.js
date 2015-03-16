@@ -64,6 +64,7 @@ function onManage() {
       console.log("Deleting team " + team + " for user " + user);
       selectedTeams = _.without(selectedTeams, team);
       populateTeams(selectedTeams);
+      manageForm.find('.apply-btn').removeClass('disabled');
     }
 
     manageForm.find('.log-out-btn').click(function() {
