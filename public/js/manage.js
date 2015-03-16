@@ -3,7 +3,7 @@ function onManage() {
   var teams;
 
   function user() {
-    return $.cookie('username')
+    return $.cookie('username').trim()
   }
   function alreadyLoggedIn() {
     return user();
@@ -108,7 +108,7 @@ function onManage() {
   function onUnregistered() {
     var form = $('#templates .log-in-form').clone();
     form.find('.log-in-btn').click(function() {
-      var name = form.find('.username').val();
+      var name = form.find('.username').val().trim();
       if(name) {
         $.cookie('username', name, {expires: 90, path:'/'});
         window.location.reload();
