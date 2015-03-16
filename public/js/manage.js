@@ -3,7 +3,7 @@ function onManage() {
   var teams;
 
   function user() {
-    return $.cookie('username').trim()
+    return $.cookie('username')
   }
   function alreadyLoggedIn() {
     return user();
