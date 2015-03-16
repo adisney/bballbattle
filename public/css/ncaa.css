@@ -63,12 +63,12 @@ body {
   padding-top: 3px;
 }
 .team-logo-summary {
-  height:44px; /* you can use % */
+  height:40px; /* you can use % */
   width: auto;
   margin-top: 5px;
 }
 .team-logo {
-  height:44px; /* you can use % */
+  height:40px; /* you can use % */
   width: auto;
   margin-top: 5px;
 }
