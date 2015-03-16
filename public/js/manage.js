@@ -86,6 +86,9 @@ function onManage() {
           addTeam(user(), $(this).val());
         }
       });
+      manageForm.find('.add-team-btn').click(function(e) {
+        addTeam(user(), manageForm.find('.tt-input').val());
+      });
     });
     setTimeout(function(){ $('.typeahead').focus(); }, 100);
     manageForm.find('.username').append(user());
