@@ -13,6 +13,7 @@ class Manager
   end
 
   def get(player)
+    player = player.strip()
     if !@players_picks.has_key?(player)
       @players_picks[player] = []
       save_picks
@@ -29,6 +30,7 @@ class Manager
   end
 
   def update(player, picks)
+    player = player.strip
     if !picks.nil?
       picks = strip_seeds(picks)
       @players_picks[player] = add_seed(picks)

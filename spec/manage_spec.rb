@@ -3,13 +3,14 @@ require 'manage.rb'
 describe "manage" do
   let ( :manager ) { Manager.new('picks_file', 'bracket_file') }
   let ( :bracket ) { double "bracket" }
-  let (:file) { double "file" }
+  let ( :file ) { double "file" }
 
   before( :each ) do
     allow(Bracket).to receive(:new).and_return bracket
     allow(bracket).to receive(:get_teams).and_return({
       "Louisville" => Team.new("Louisville", 4, ""),
       "Oklahoma" => Team.new("Oklahoma", 5, ""),
+      "Harvard" => Team.new("Harvard", 10, ""),
       "Michigan State" => Team.new("Michigan State", 4, "")})
     allow(File).to receive(:readlines).and_return(["Alex D,Louisville,Oklahoma,Michigan State"])
     allow(File).to receive(:open).and_yield file
@@ -26,7 +27,7 @@ describe "manage" do
   end
 
   it "returns the json seeded picks" do
-    expect(manager.get "Alex D").to eq('["4. Louisville","5. Oklahoma","4. Michigan State"]')
+    expect(manager.get "Alex D ").to eq('["4. Louisville","5. Oklahoma","4. Michigan State"]')
   end
 
   it "creates an entry if player new" do
@@ -40,8 +41,8 @@ describe "manage" do
   end
 
   it "updates player picks" do
-    manager.update("Alex D", ["4. Louisville","5. Oklahoma","4. Michigan State"])
-    expect(manager.get "Alex D").to eq('["4. Louisville","5. Oklahoma","4. Michigan State"]')
+    manager.update("Alex D ", ["4. Louisville","5. Oklahoma","4. Michigan State", "10. Harvard"])
+    expect(manager.get "Alex D").to eq('["4. Louisville","5. Oklahoma","4. Michigan State","10. Harvard"]')
   end
 
   it "can remove all picks" do
