@@ -57,6 +57,7 @@ function onManage() {
         $(this).val('');
       }
       populateTeams(selectedTeams);
+      manageForm.find('.apply-btn').removeClass('disabled');
     }
 
     function deleteTeam(user, team) {
