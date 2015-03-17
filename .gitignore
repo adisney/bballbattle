@@ -5,3 +5,5 @@
 .DS_Store
 *.log
 keys/*.pem
+lib/analysis.rb
+bracket-00.tsv

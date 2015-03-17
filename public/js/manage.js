@@ -67,6 +67,10 @@ function onManage() {
       manageForm.find('.apply-btn').removeClass('disabled');
     }
 
+    function gamesHaveStarted() {
+      return new Date().getTime() > new Date("2015-03-19 10:00:00 EDT").getTime()
+    }
+
     manageForm.find('.log-out-btn').click(function() {
       $.removeCookie('username');
       window.location.reload();
@@ -106,6 +110,14 @@ function onManage() {
       });
       window.location.reload();
     });
+    setTimeout(function() {
+      if (gamesHaveStarted()) {
+        manageForm.find('.tt-input').attr('disabled', '');
+        manageForm.find('.tt-hint').attr('disabled', '');
+        manageForm.find('.add-team-btn').attr('disabled', '');
+        manageForm.find('.delete-btn').attr('disabled', '');
+      }
+    }, 250);
 
     return manageForm;
   }
