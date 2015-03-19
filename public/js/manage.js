@@ -68,7 +68,7 @@ function onManage() {
     }
 
     function gamesHaveStarted() {
-      return new Date().getTime() > new Date("2015-03-19 10:00:00 EDT").getTime()
+      return new Date().getTime() > new Date("2015-03-19 12:00:00 EDT").getTime()
     }
 
     manageForm.find('.log-out-btn').click(function() {
