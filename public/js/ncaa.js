@@ -81,7 +81,7 @@ function on_success(response) {
   });
 
   rows = _.sortBy(rows, function(row) {
-    return row.find(".total").text();
+    return parseInt(row.find(".total").text());
   }).reverse();
 
   place = 1;
