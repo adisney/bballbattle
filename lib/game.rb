@@ -1,12 +1,13 @@
 class Game
   FINAL = "final"
 
-  attr_accessor :teams, :scores, :state
+  attr_accessor :teams, :round, :scores
 
-  def initialize(teams, scores, state)
+  def initialize(teams, scores, state, round)
     @teams = teams
     @scores = scores
     @state = state
+    @round = round
   end
 
   def winner
@@ -27,6 +28,6 @@ class Game
 
     Game.new([home[:names][:short], away[:names][:short]], 
              [home[:score].to_i, away[:score].to_i], 
-             game[:gameState])
+             game[:gameState], game[:round].to_i)
   end
 end

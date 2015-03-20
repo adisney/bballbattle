@@ -43,8 +43,9 @@ class Bracket
   def get_matchups()
     matchups = []
 
-    @games.each do |game|
-      matchups << Game.from_json(game)
+    @games.each do |json|
+      game = Game.from_json(json)
+      matchups << game if game.round > 1
     end
 
     matchups

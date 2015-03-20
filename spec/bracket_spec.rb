@@ -48,7 +48,7 @@ describe "bracket" do
         \"winner\": \"false\"
       },
       \"timeclock\": \"0:00\",
-      \"round\": \"1\",
+      \"round\": \"2\",
       \"location\": \"University of Dayton Arena, Dayton, Ohio\",
       \"network\": \"truTV\",
       \"url\": \"/game/basketball-men/d1/2014/03/18/albany-ny-mt-st-marys\",
@@ -102,21 +102,25 @@ describe "bracket" do
     let (:matchup) { matchups[0] }
 
     it "gets game state" do
-      expect(matchups[0].state).to eq "final"
-      expect(matchups[50].state).to eq "pre"
+      expect(matchups[0].completed).to eq true
+      expect(matchups[50].completed).to eq false
+    end
+
+    it "doesn't get games from round 1" do
+      expect(matchups.length).to eq 63 
     end
     
     describe "team details" do
       it "gets competitors" do
-        expect(matchup.teams).to eq ["Mt. St. Mary's","Albany"]
+        expect(matchup.teams).to eq ["Ohio State","Dayton"]
       end
 
       it "gets the winner" do
-        expect(matchup.winner).to eq "Albany"
+        expect(matchup.winner).to eq "Dayton"
       end
 
       it "gets the score" do
-        expect(matchup.scores).to eq [64, 71]
+        expect(matchup.scores).to eq [59, 60]
       end
     end
   end

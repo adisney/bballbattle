@@ -2,14 +2,14 @@ require 'game.rb'
 require 'json'
 
 describe "game" do
-  let (:game) { Game.new(["Louisville", "Manhattan"], [71, 64], Game::FINAL) }
+  let (:game) { Game.new(["Louisville", "Manhattan"], [71, 64], Game::FINAL, 2) }
 
   it "has two teams" do
     expect(game.teams).to eq ["Louisville", "Manhattan"]
   end
 
   it "has a score" do
-    expect(game.scores).to eq [71, 64] 
+    expect(game.scores).to eq [71, 64]
   end
 
   it "has a winner" do
@@ -22,6 +22,10 @@ describe "game" do
 
   it "knows when game complete" do
     expect(game.completed).to eq true
+  end
+
+  it "has the game round" do
+    expect(game.round).to eq 2
   end
 
   describe "from json" do
@@ -44,6 +48,7 @@ describe "game" do
       },
       \"seedTop\": 4,
       \"seedBottom\": 12,
+      \"round\": \"2\",
       \"gameState\": \"final\",
       \"away\": {
         \"score\": \"64\",
@@ -65,6 +70,10 @@ describe "game" do
 
     it "can parse a game" do
       expect(parsed_game.teams).to eq ["Louisville", "Manhattan"]
+      expect(parsed_game.round).to eq 2
+      expect(parsed_game.winner).to eq "Louisville"
+      expect(parsed_game.loser).to eq "Manhattan"
+      expect(parsed_game.completed).to eq true
     end
   end
 end
