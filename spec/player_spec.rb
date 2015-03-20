@@ -12,14 +12,14 @@ describe "player" do
     "Nebraska" => Team.new("Nebraska", 11, "logo"),
   }}
   let (:matchups) {[
-    Game.new(["Michigan State", "other team"], [71, 64], "final"),
-    Game.new(["Louisville", "other team"], [71, 64], "final"),
-    Game.new(["Oklahoma", "other team"], [64, 71], "final"),
-    Game.new(["Stanford", "other team"], [71, 64], "final"),
-    Game.new(["Harvard", "other team"], [71, 64], "final"),
-    Game.new(["Ohio State", "other team"], [64, 71], "final"),
-    Game.new(["Kentucky", "other team"], [71, 64], "final"),
-    Game.new(["Nebraska", "other team"], [64, 71], "final")
+    Game.new(["Michigan State", "other team"], [71, 64], "final", 2),
+    Game.new(["Louisville", "other team"], [71, 64], "final", 2),
+    Game.new(["Oklahoma", "other team"], [64, 71], "final", 2),
+    Game.new(["Stanford", "other team"], [71, 64], "final", 2),
+    Game.new(["Harvard", "other team"], [71, 64], "final", 2),
+    Game.new(["Ohio State", "other team"], [64, 71], "final", 2),
+    Game.new(["Kentucky", "other team"], [71, 64], "final", 2),
+    Game.new(["Nebraska", "other team"], [64, 71], "final", 2)
   ]}
   let (:player) { Player.new("Jon P,Michigan State,Louisville,Oklahoma,Stanford,Harvard,Ohio State,Kentucky, Nebraska", teams, matchups) }
   let (:player_picks) { player.picks }
