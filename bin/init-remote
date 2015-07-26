@@ -42,11 +42,7 @@ GIT_WORK_TREE=~/apps/bballbattle git checkout -f
 git tag -a \`date "+%Y-%m-%d_%H%M%S"\` -m "Tag created by deploy script"
 cd ~/apps/bballbattle
 bundle install --without test
-if [ \`ps ux | grep -c ruby\` -gt 1 ]; then
-kill \`ps ux | grep ruby | grep -v grep | awk '{ print \$2 }'\`
-sleep 5
-~/apps/bballbattle/bin/start.sh
-fi
+svc -t .
 DOC
 ssh $server "chmod +x ~/git/bballbattle.git/hooks/post-receive"
 
@@ -66,6 +62,12 @@ ssh $server "sudo tee /etc/ddclient.conf" < $root_dir/conf/ddclient/ddclient.con
 ssh $server <<DOC
 sudo chown root /etc/ddclient.conf # May not be necessary step
 sudo ddclient
+DOC
+
+ssh $server <<DOC
+if ! pgrep svscan; then
+  /usr/bin/svscan ~/apps | logger -t supervise &
+fi
 DOC
 
 echo "Doing initial deploy"
