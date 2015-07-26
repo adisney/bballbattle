@@ -8,7 +8,7 @@ class Bracket
     @games = parse_bracket(bracket_file)
   end
 
-  def get_bracket()
+  def self.get_bracket()
     # based on bracket located at http://www.ncaa.com/interactive-bracket/basketball-men/d1
     response = %x[curl -s http://data.ncaa.com/gametool/brackets/championships/basketball-men/d1/2014/data.json]
     json = JSON.parse(response, {:symbolize_names => true})
@@ -16,10 +16,10 @@ class Bracket
     json
   end
 
-  def write_bracket
+  def self.write_bracket(bracket_file)
     #puts get_current_time
     puts "starting..."
-    file = File.open("data/bracket.json", "w")
+    file = File.open(bracket_file, "w")
     file.write(get_bracket.to_json)
     file.close
     puts "done"

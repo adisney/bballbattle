@@ -33,7 +33,7 @@ get '/history' do
 end
 
 get '/update_bracket' do
-  Bracket.new("data/bracket.json").write_bracket
+  Bracket.write_bracket("data/bracket.json")
 end
 
 get '/teams' do
