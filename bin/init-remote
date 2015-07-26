@@ -19,10 +19,6 @@ fi
 DOC
 
 ssh $server <<DOC
-echo "Setting iptables"
-sudo iptables-restore < ~/git/bballbattle.git/conf/ncaa.fw
-sudo sed -i "s|exit|iptables-restore < ~/git/bballbattle.git/conf/ncaa.fw\nexit|" /etc/rc.local
-
 echo "adding app repo to make working version of ddclient available"
 # The version of ddclient in Ubuntu repositories is out of date and has a debilitating bug. A new repository must be added with a patched version of ddclient
 sudo apt-add-repository -y ppa:nathan-renniewaldock/ppa
@@ -55,7 +51,7 @@ git push $server:git/bballbattle.git master
 # Add nginx config
 
 echo "configuring nginx"
-ssh $server "sudo tee /etc/nginx/sites-enabled/bballbattle" < $root_dir/conf/bbalbattle.nginx.conf
+ssh $server "sudo tee /etc/nginx/sites-enabled/bballbattle" < ~/apps/bballbattle/conf/bballbattle.nginx.conf
 ssh $server <<DOC
   sudo rm /etc/nginx/sites-enabled/default
   sudo /etc/init.d/nginx restart
