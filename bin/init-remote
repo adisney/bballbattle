@@ -37,8 +37,9 @@ GIT_WORK_TREE=~/apps/bballbattle git checkout -f
 git tag -a \`date "+%Y-%m-%d_%H%M%S"\` -m "Tag created by deploy script"
 cd ~/apps/bballbattle
 bundle install --without test
-if [ `ps ux | grep -c ruby` -gt 1 ]; then
-kill \`ps ux | grep ruby | grep -v grep | awk \"{ print \$2 }\"\`
+if [ \`ps ux | grep -c ruby\` -gt 1 ]; then
+kill \`ps ux | grep ruby | grep -v grep | awk '{ print \$2 }'\`
+sleep 5
 ~/apps/bballbattle/bin/start.sh
 fi
 DOC
