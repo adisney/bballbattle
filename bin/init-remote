@@ -5,6 +5,11 @@ server=${1:-cromulence}
 
 echo "initializing $server"
 
+if ! ssh $server 'whoami'; then
+  echo "Cannot log into server named $server. Ensure it is properly configured in ~/.ssh/config."
+  echo "See README.md for details"
+  exit 1
+fi
 
 ssh $server <<DOC
 git config --global user.email "alexdisney@gmail.com"
