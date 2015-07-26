@@ -1,0 +1,62 @@
+#! /bin/bash
+
+root_dir=`dirname $0`/..
+server=${1:-cromulence}
+
+echo "initializing $server"
+
+
+ssh $server <<DOC
+git config --global user.email "alexdisney@gmail.com"
+git config --global user.name "BBallBattle"
+
+if [ ! -e ~/git/bballbattle.git ]; then
+  mkdir -p ~/git/bballbattle.git
+  cd ~/git/bballbattle.git
+  git init --bare
+  git --bare update-server-info
+fi
+DOC
+
+ssh $server <<DOC
+echo "Setting iptables"
+sudo iptables-restore < ~/git/bballbattle.git/conf/ncaa.fw
+sudo sed -i "s|exit|iptables-restore < ~/git/bballbattle.git/conf/ncaa.fw\nexit|" /etc/rc.local
+
+echo "adding app repo to make working version of ddclient available"
+# The version of ddclient in Ubuntu repositories is out of date and has a debilitating bug. A new repository must be added with a patched version of ddclient
+sudo apt-add-repository -y ppa:nathan-renniewaldock/ppa
+
+echo "installing apps"
+sudo apt-get -y update
+sudo apt-get -y install ddclient
+sudo apt-get -y install git daemontools ruby1.9.3 nginx
+
+echo "configuring ddclient"
+sudo cp ./conf/ddclient/ddclient.conf /etc/ddclient.conf
+sudo chown root /etc/ddclient.conf # May not be necessary step
+sudo ddclient
+DOC
+
+# Add nginx config
+echo "configuring nginx"
+ssh $server "sudo tee /etc/nginx/sites-enabled/bballbattle" < $root_dir/conf/bbalbattle.nginx.conf
+ssh $server <<DOC
+  sudo rm /etc/nginx/sites-enabled/default
+  sudo /etc/init.d/nginx restart
+DOC
+
+# Add post receive hook
+ssh $server "cat > ~/git/bbalbattle/hooks/post-receive" <<DOC
+#!/bin/sh
+mkdir -p ~/apps/bballbattle
+GIT_WORK_TREE=~/apps/bballbattle git checkout -f
+git tag -a \`date "+%Y-%m-%d_%H%M%S"\` -m "Tag created by deploy script"
+cd ~/apps/bballbattle
+bundle install --without test
+kill \`ps ux | grep ruby | grep -v grep | awk \"{ print \$2 }\"\`"
+~/apps/bballbattle/bin/start.sh"
+DOC
+
+echo "Doing initial deploy"
+git push $server:git/bballbattle.git master
