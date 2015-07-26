@@ -10,7 +10,15 @@ set :static, true
 set :bind, '0.0.0.0'
 set :port, 8080
 set :public_folder, './public'
-set :manager, Manager.new("data/picks.csv", "data/bracket.json")
+set :bracket_file,  "data/bracket.json"
+set :picks_file, "data/picks.csv"
+set :manager, nil
+
+def hire_manager
+  if File.exists?(settings.bracket_file) && File.exists?(settings.picks_file)
+    settings.manager = Manager.new(settings.picks_file, settings.bracket_file)
+  end
+end
 
 get '/' do
   File.read('public/index.html')
@@ -33,12 +41,20 @@ get '/teams' do
 end
 
 get '/player' do
-  settings.manager.get(params[:name])
+  if settings.manager
+    settings.manager.get(params[:name])
+  else
+    hire_manager
+  end
 end
 
 post '/update' do
-  settings.manager.update(params[:name], params[:picks])
-  settings.manager.save_picks
+  if settings.manager
+    settings.manager.update(params[:name], params[:picks])
+    settings.manager.save_picks
+  else
+    hire_manager
+  end
 end
 
 get '/ideas' do
