@@ -38,16 +38,8 @@ sudo chown root /etc/ddclient.conf # May not be necessary step
 sudo ddclient
 DOC
 
-# Add nginx config
-echo "configuring nginx"
-ssh $server "sudo tee /etc/nginx/sites-enabled/bballbattle" < $root_dir/conf/bbalbattle.nginx.conf
-ssh $server <<DOC
-  sudo rm /etc/nginx/sites-enabled/default
-  sudo /etc/init.d/nginx restart
-DOC
-
 # Add post receive hook
-ssh $server "cat > ~/git/bbalbattle/hooks/post-receive" <<DOC
+ssh $server "cat > ~/git/bballbattle.git/hooks/post-receive" <<DOC
 #!/bin/sh
 mkdir -p ~/apps/bballbattle
 GIT_WORK_TREE=~/apps/bballbattle git checkout -f
@@ -60,3 +52,19 @@ DOC
 
 echo "Doing initial deploy"
 git push $server:git/bballbattle.git master
+# Add nginx config
+
+echo "configuring nginx"
+ssh $server "sudo tee /etc/nginx/sites-enabled/bballbattle" < $root_dir/conf/bbalbattle.nginx.conf
+ssh $server <<DOC
+  sudo rm /etc/nginx/sites-enabled/default
+  sudo /etc/init.d/nginx restart
+DOC
+
+echo "configuring iptables"
+
+ssh $server <<DOC
+echo "Setting iptables"
+sudo iptables-restore < ~/apps/bballbattle/conf/ncaa.fw
+sudo sed -i "s|exit|iptables-restore < ~/apps/bballbattle/conf/ncaa.fw\nexit|" /etc/rc.local
+DOC
