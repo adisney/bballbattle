@@ -2,4 +2,7 @@ source 'https://rubygems.org'
 
 gem 'nokogiri'
 gem 'sinatra'
-gem 'guard-rspec', require: false
+
+group :test do
+  gem 'guard-rspec', require: false
+end
