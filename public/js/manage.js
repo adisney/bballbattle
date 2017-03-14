@@ -12,6 +12,7 @@ function onManage() {
   function pickToString(obj) {
     return obj.seed + '. ' + obj.name;
   }
+
   function substringMatcher(objs) {
     var strs = _.map(objs, function(obj) {
       return pickToString(obj);
@@ -68,7 +69,7 @@ function onManage() {
     }
 
     function gamesHaveStarted() {
-      return new Date().getTime() > new Date("2015-03-19 12:00:00 EDT").getTime()
+      return new Date().getTime() > new Date("2017-03-16 12:00:00 EDT").getTime()
     }
 
     manageForm.find('.log-out-btn').click(function() {

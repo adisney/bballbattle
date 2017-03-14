@@ -10,7 +10,7 @@ class Bracket
 
   def self.get_bracket()
     # based on bracket located at http://www.ncaa.com/interactive-bracket/basketball-men/d1
-    response = %x[curl -s http://data.ncaa.com/gametool/brackets/championships/basketball-men/d1/2014/data.json]
+    response = %x[curl -s http://data.ncaa.com/carmen/brackets/championships/basketball-men/d1/2017/data.json]
     json = JSON.parse(response, {:symbolize_names => true})
     #json[:update_time] = get_current_time
     json

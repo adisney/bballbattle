@@ -10,3 +10,4 @@ bracket-00.tsv
 *.png
 *.png*
 data/picks.csv
+*picks*.csv
