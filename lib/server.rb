@@ -8,7 +8,7 @@ require 'manage'
 
 set :static, true
 set :bind, '0.0.0.0'
-set :port, 8080
+set :port, 8081
 set :public_folder, './public'
 set :bracket_file,  "data/bracket.json"
 set :picks_file, "data/picks.csv"
