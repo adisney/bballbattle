@@ -93,6 +93,7 @@ function onManage() {
       });
       manageForm.find('.add-team-btn').click(function(e) {
         addTeam(user(), manageForm.find('.tt-input').val());
+        $('.typeahead').typeahead('val', '')
       });
     });
     setTimeout(function(){ $('.typeahead').focus(); }, 100);
