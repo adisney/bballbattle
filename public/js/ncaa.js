@@ -98,6 +98,7 @@ $(document).ready(function() {
     url: "/picks",
     success: on_success,
     dataType: "json",
-    type: "GET"
+    type: "GET",
+    cache: "false"
   });
 });
