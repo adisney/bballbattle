@@ -7,8 +7,7 @@
 keys/*.pem
 lib/analysis.rb
 bracket-00.tsv
-*.png
-*.png*
 data/picks.csv
 *picks*.csv
 icon_urls
+*.png*
