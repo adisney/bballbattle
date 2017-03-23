@@ -26,7 +26,7 @@ class Game
     home = game[:home]
     away = game[:away]
 
-    Game.new([home[:names][:short], away[:names][:short]], 
+    Game.new([home[:names][:short].rstrip, away[:names][:short].rstrip], 
              [home[:score].to_i, away[:score].to_i], 
              game[:gameState], game[:round].to_i)
   end
