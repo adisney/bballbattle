@@ -30,7 +30,7 @@ class Team
 
   def self.from_json(json, side)
     team = json[side]
-    name = team[:names][:short]
+    name = team[:names][:short].rstrip()
     seed = team[:isTop] == "T" ? json[:seedTop].to_i : json[:seedBottom].to_i
     logo = team[:iconURL].split('/')[8]
 

@@ -58,7 +58,7 @@ describe "team" do
         \"score\": \"71\",
         \"names\": {
           \"full\": \"University of Louisville\",
-          \"short\": \"Louisville\",
+          \"short\": \"Louisville \",
           \"seo\": \"louisville\",
           \"char6\": \"LOUIS\",
           \"char8\": \"\",
