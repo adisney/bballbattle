@@ -11,3 +11,5 @@ data/picks.csv
 *picks*.csv
 icon_urls
 *.png*
+vendor/*
+.bundle

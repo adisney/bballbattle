@@ -25,7 +25,7 @@ get '/' do
 end
 
 get '/picks' do
-  Picks.new("data/picks.csv", "data/bracket.json").to_json
+    Picks.new(settings.picks_file, settings.bracket_file).to_json
 end
 
 get '/history' do
@@ -33,11 +33,11 @@ get '/history' do
 end
 
 get '/update_bracket' do
-  Bracket.write_bracket("data/bracket.json")
+  Bracket.write_bracket(settings.bracket_file)
 end
 
 get '/teams' do
-  Bracket.new('data/bracket.json').get_teams.to_json
+  Bracket.new(settings.bracket_file).get_teams.to_json
 end
 
 get '/player' do

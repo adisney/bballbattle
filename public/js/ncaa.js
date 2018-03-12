@@ -50,8 +50,6 @@ function configOnClick(details, logos, id) {
 }
 
 function on_success(response) {
-  //$(".update-time").text(response.update_time);
-
   rows = [];
   _.each(response, function(data) {
     player = data.name
@@ -64,8 +62,8 @@ function on_success(response) {
     row.find(".expander.glyphicon-minus").click(ensmallen(row.find(".details"), row.find(".logos"), expanderId));
 
     index = 0
-    //if (new Date().getTime() > new Date("2017-03-16 10:00:00:00 EDT").getTime()) {
-      //$('.revealed').addClass("hidden");
+    if (new Date().getTime() > new Date("2018-03-15 12:00:00 EDT").getTime()) {
+      $('.revealed').addClass("hidden");
       _.each(data.picks, function(teamData, team) {
         details = populateTeamDetails(row, team, index, teamData);
         logos = populateTeamLogos(row, teamData);
@@ -74,7 +72,7 @@ function on_success(response) {
 
         index += 1;
       });
-    //}
+    }
 
     row.find(".total").append(data.score);
     rows.push(row);
