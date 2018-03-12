@@ -46,7 +46,7 @@ function onManage() {
           deleteTeam(user(), team);
         });
         entry.find('.team-name').text(team);
-        panel.find('.team-row' + (index % 2)).append(entry);
+        panel.find('.teams').append(entry);
       });
     }
 
