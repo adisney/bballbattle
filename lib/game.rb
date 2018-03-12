@@ -28,6 +28,7 @@ class Game
 
     Game.new([home[:names][:short].rstrip, away[:names][:short].rstrip], 
              [home[:score].to_i, away[:score].to_i], 
-             game[:gameState], game[:round].to_i)
+             game[:gameState], 
+             game[:round].to_i)
   end
 end
